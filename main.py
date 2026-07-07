@@ -51,6 +51,8 @@ while game:
         background.draw(window)
         ship.draw(window)
         ship.updatepony(window.get_rect())
+        ship.bullets.draw(window)
+        ship.bullets.update()
         #ship.drawrect(window)
         monsters.draw(window)
         monsters.update()
@@ -75,6 +77,9 @@ while game:
     # слушать события и обрабатывать
     for e in event.get():
         if e.type == KEYDOWN: 
+            if e.key == K_SPACE: 
+                if not finish:
+                    ship.shoot()
             if e.key == K_p: 
                 if finish: 
                     ship, fluttershy, diskord, kluch = give_birth()

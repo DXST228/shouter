@@ -1,3 +1,4 @@
+from buller import *
 from pygame import *
 from pygame.math import Vector2
 from gamesprite import *
@@ -14,6 +15,7 @@ class Player(Gamesprite):
         self.lastpos=self.pos
         self.imageleft=transform.flip(self.image, True, False)
         self.imageright=self.image
+        self.bullets =sprite.Group()
     def getdirection(self, left=K_a, right=K_d):
         keys = key.get_pressed()
         direction = Vector2(0,0)
@@ -71,3 +73,8 @@ class Player(Gamesprite):
         self.rect.clamp_ip(window_rect)
         self.pos.x, self.pos.y = self.rect.center
 
+    def shoot(self):
+        img = list(BALL.keys())[0]
+        bullet = Bullet(img, self.rect.centerx, self.rect.y, BALL[img])
+        print(bullet.rect.x,bullet.rect.y)
+        self.bullets.add(bullet)

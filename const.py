@@ -12,7 +12,7 @@ MONSTERS = {
     MONSTER3: (70,60), 
     }
 BALL = {
-    PAPKA+ 'ball1.png': (10, 10),
+    PAPKA+ 'ball1.png': (50, 50),
     PAPKA+ 'ball2.png': (10, 15),
     }
 SHIP = PAPKA +'ship.png'
