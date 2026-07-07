@@ -45,6 +45,7 @@ record=title.render('Красавчик, но мог быстрее ',True, PINK
 i =0
 game= True
 finish = False
+iswin = True
 while game:
     if not finish:
         # отобразить картинку фона
@@ -63,10 +64,12 @@ while game:
             #finish = True
 
     #         ball.speed_y *= -1
-    #     if sprite.spritecollide( ball,monsters, True):
-    #         ball.speed_y *= -1
+        if sprite.spritecollide( ship,monsters, True):
+            iswin = False
+            finish = True
+            
     else: 
-        if sprite.collide_rect(ship, fluttershy):
+        if not iswin:
             record=title.render('Красавчик ',True, PINK)
         else:
             record=title.render('Красавчик, но мог быстрее ',True, PINK)
