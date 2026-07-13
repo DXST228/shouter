@@ -3,8 +3,8 @@ from pygame.math import Vector2
 from gamesprite import *
 from const import *
 from random import randint
-class Enemy(Gamesprite):
-    def __init__(self, img, size, wait,iswaiting=False, speed =3):
+class Bonus(Gamesprite):
+    def __init__(self, img, size, wait,iswaiting=True, speed =5):
         super().__init__(img,0, 0, size)
         self.speed = speed
         self.run = False
@@ -20,8 +20,8 @@ class Enemy(Gamesprite):
 
     
     def spawn(self):
-        x=randint(self.rect.width//2+50, WIN_W-int(self.rect.width*1.5+20))
-        y=randint(0,30)
+        x=randint(self.rect.width//2, WIN_W-int(self.rect.width*1.5))
+        y=-self.rect.height
         self.pos.x=x
         self.pos.y=y
         self.rect.centerx = int(self.pos.x)

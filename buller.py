@@ -4,7 +4,7 @@ from gamesprite import *
 from const import *
 from random import randint
 class Bullet(Gamesprite):
-    def __init__(self, img,x, y, size, speed =3):
+    def __init__(self, img,x, y, size, speed =4):
         super().__init__(img,x, y, size)
         self.speed = speed
         self.run = False
@@ -16,9 +16,6 @@ class Bullet(Gamesprite):
 
     def update(self):
         if self.rect.y<=0:
-            print("kill")
-            self.kill()
-        else:       
-            self.pos.y -= self.speed
-            self.rect.centery = int(self.pos.y)
+            self.kill()      
+        self.rect.y -= self.speed
     

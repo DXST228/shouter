@@ -3,6 +3,8 @@ from const import *
 from gamesprite import *
 from player import *
 from enemy import *
+from random import choice
+from bonus import *
 #from classes import*
 
 
@@ -16,9 +18,9 @@ def give_birth():
     for img in MONSTERS :
         monster = Enemy(img, MONSTERS[img], 3)
         monsters.add(monster)
-    #kluch = Gamesprite(KIUCH,WIN_W-K_SIZE[0], 10, K_SIZE)
+    bonus = Bonus(BONUS,K_SIZE, 10)
 
-    return(ship, monsters)
+    return(ship, monsters, bonus)
 
 
 font.init()
@@ -38,7 +40,7 @@ display.set_caption("Я грр, ты мне?")
 background = Gamesprite(FON, 0, 0, (WIN_W,WIN_H))
 
 
-ship, monsters = give_birth()
+ship, monsters, bonus = give_birth()
 
 
 record=title.render('Красавчик, но мог быстрее ',True, PINK)
@@ -48,6 +50,11 @@ finish = False
 iswin = True
 while game:
     if not finish:
+        if ship.hasupgrade: 
+            ship.bonustime-=1
+            if ship.bonustime <=0:
+                ship.hasupgrade=False
+                ship.bonustime=BONUSTIME*FPS
         # отобразить картинку фона
         background.draw(window)
         ship.draw(window)
@@ -57,6 +64,8 @@ while game:
         #ship.drawrect(window)
         monsters.draw(window)
         monsters.update()
+        bonus.draw(window)
+        bonus.update()
 
             
         #if sprite.collide_rect(ship, fluttershy):
@@ -67,6 +76,18 @@ while game:
         if sprite.spritecollide( ship,monsters, True):
             iswin = False
             finish = True
+        for  c in sprite.groupcollide(monsters, ship.bullets, True, True):
+            img = choice(list(MONSTERS.keys()))
+            monster = Enemy(img, MONSTERS[img], 3)
+            monsters.add(monster) 
+        if sprite.collide_rect(ship, bonus):
+            bonus.spawn()
+            bonus.iswaiting=True
+            ship.hasupgrade= True
+            print(ship.bonustime)
+
+            
+        
             
     else: 
         if not iswin:

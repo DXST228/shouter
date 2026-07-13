@@ -12,15 +12,15 @@ MONSTERS = {
     MONSTER3: (70,60), 
     }
 BALL = {
-    PAPKA+ 'ball1.png': (50, 50),
+    PAPKA+ 'ball1.png': (10, 10),
     PAPKA+ 'ball2.png': (10, 15),
     }
 SHIP = PAPKA +'ship.png'
 BOSS = PAPKA +'monsterboss.png'
-KIUCH =PAPKA + 'kluch.png'
+BONUS =PAPKA + 'bonus.png'
 SHIP_SIZE = (120, 40)
 BOSS_SIZE = (80, 80)
-K_SIZE = (30, 60)
+K_SIZE = (60, 60)
 FON = PAPKA +'more_fon.jpg'
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -28,3 +28,4 @@ GREY = (100,100,100)
 GREEN = (17, 118, 81)
 PINK = (212, 14, 217)
 GAZAN = 0.67
+BONUSTIME = 3

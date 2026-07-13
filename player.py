@@ -16,6 +16,8 @@ class Player(Gamesprite):
         self.imageleft=transform.flip(self.image, True, False)
         self.imageright=self.image
         self.bullets =sprite.Group()
+        self.hasupgrade=False
+        self.bonustime= BONUSTIME*FPS
     def getdirection(self, left=K_a, right=K_d):
         keys = key.get_pressed()
         direction = Vector2(0,0)
@@ -75,6 +77,13 @@ class Player(Gamesprite):
 
     def shoot(self):
         img = list(BALL.keys())[0]
-        bullet = Bullet(img, self.rect.centerx, self.rect.y, BALL[img])
-        print(bullet.rect.x,bullet.rect.y)
-        self.bullets.add(bullet)
+        if not self.hasupgrade:
+            bullet = Bullet(img, self.rect.centerx, self.rect.y, BALL[img])
+            self.bullets.add(bullet)
+        else:
+            bullet = Bullet(img, self.rect.centerx, self.rect.y, BALL[img])
+            self.bullets.add(bullet)
+            bullet = Bullet(img, self.rect.centerx+15, self.rect.y, BALL[img])
+            self.bullets.add(bullet)
+            bullet = Bullet(img, self.rect.centerx-15, self.rect.y, BALL[img])
+            self.bullets.add(bullet)
