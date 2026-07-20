@@ -7,6 +7,8 @@ class Player(Gamesprite):
     def __init__(self, img, x, y, size, speed =SPEED):
         super().__init__(img, x, y, size)
         self.speed = speed
+        self.score = 0
+        self.antiscore = 0
         self.acc = 1
         self.dec = 2
         self.maxspeed = speed

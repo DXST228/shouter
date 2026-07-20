@@ -19,12 +19,15 @@ def give_birth():
         monster = Enemy(img, MONSTERS[img], 3)
         monsters.add(monster)
     bonus = Bonus(BONUS,K_SIZE, 10)
+    boss = Player(BOSS,0, -BOSS_SIZE[1], BOSS_SIZE)
 
     return(ship, monsters, bonus)
 
 
 font.init()
 title=font.SysFont('verdana', 36)
+small=font.SysFont('verdana', 25)
+
 # вынесем размер окна в константы для удобства
 # W - width, ширина
 # H - height, высота
@@ -57,13 +60,17 @@ while game:
                 ship.bonustime=BONUSTIME*FPS
         # отобразить картинку фона
         background.draw(window)
+        score=small.render(f'счет {ship.score}',True, WHITE)
+        antiscore=small.render(f'счет {ship.antiscore}',True, WHITE)
+        window.blit(score, (10,10))
+        window.blit(antiscore, (10,40))
         ship.draw(window)
         ship.updatepony(window.get_rect())
         ship.bullets.draw(window)
         ship.bullets.update()
         #ship.drawrect(window)
         monsters.draw(window)
-        monsters.update()
+        monsters.update(ship)
         bonus.draw(window)
         bonus.update()
 
@@ -80,11 +87,15 @@ while game:
             img = choice(list(MONSTERS.keys()))
             monster = Enemy(img, MONSTERS[img], 3)
             monsters.add(monster) 
+            ship.score += 1
         if sprite.collide_rect(ship, bonus):
             bonus.spawn()
             bonus.iswaiting=True
             ship.hasupgrade= True
             print(ship.bonustime)
+        if ship.score >= MAXMONSTERS:
+            for monster in monsters:
+                monster.kill()
 
             
         
